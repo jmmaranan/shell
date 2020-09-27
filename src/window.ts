@@ -261,15 +261,15 @@ export class ShellWindow {
                     callback();
                 }
 
-                Tweener.add(actor, {
+                Tweener.add(this, {
                     x: clone.x - dx,
                     y: clone.y - dy,
-                    duration: 275,
+                    duration: 200,
                     mode: null,
                 });
 
                 ext.tween_signals.set(entity_string, [
-                    Tweener.on_window_tweened(this.meta, onComplete),
+                    Tweener.on_window_tweened(this, onComplete),
                     onComplete
                 ]);
             } else {
