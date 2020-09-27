@@ -264,7 +264,7 @@ export class ShellWindow {
                 Tweener.add(this, {
                     x: clone.x - dx,
                     y: clone.y - dy,
-                    duration: 200,
+                    duration: 275,
                     mode: null,
                 });
 
