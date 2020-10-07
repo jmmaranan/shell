@@ -131,8 +131,8 @@ export class ShellWindow {
         let settings = this.ext.settings;
         let change_id = settings.ext.connect('changed', (_, key) => {
             if (this.border) {
-                if (key === 'hint-color-rgba') {
-                    this.update_hint_colors();
+                if (key === 'hint-color-rgba' || key === 'hint-size') {
+                    this.update_hint_styles();   
                 }
             }
             return false;
@@ -143,7 +143,7 @@ export class ShellWindow {
             this.on_style_changed();
         });
 
-        this.update_hint_colors();
+        this.update_hint_styles();
     }
 
     /**
@@ -151,9 +151,10 @@ export class ShellWindow {
      * - border hint
      * - overlay
      */
-    private update_hint_colors() {
+    private update_hint_styles() {
         let settings = this.ext.settings;
         const color_value = settings.hint_color_rgba();
+        const hint_size = settings.hint_size();
 
         if (this.ext.overlay) {
             const gdk = new Gdk.RGBA();
@@ -173,7 +174,9 @@ export class ShellWindow {
         }
 
         if (this.border)
-            this.border.set_style(`border-color: ${color_value}`);
+            this.border.set_style(`border-color: ${color_value}; border-width: ${hint_size}px`);
+        
+        this.update_border_layout();
     }
 
     cmdline(): string | null {
